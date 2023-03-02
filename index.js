@@ -53,8 +53,40 @@ const questions = [
         name: 'questions',
     }
 ];
+inquirer.prompt(questions).then((response)=>{
+    if (response.title){
+        console.log(response.title)
+    };
+    if (response.description){
+        console.log(response.description)
+    };
+    if (response.installation){
+        console.log(response.installation)
+    };
+    if (response.usage){
+        console.log(response.usage)
+    };
+    if (response.license){
+        console.log(response.license)
+    };
+    if (response.contributing){
+        console.log(response.contributing)
+    };
+    if (response.tests){
+        console.log(response.tests)
+    };
+    if (response.questions){
+        console.log(response.questions)
+    };
+}
 
+)
+var markDownContent = "";
 // TODO: Create a function to write README file
+// const generateContent({ tile, description, installation, usage, license, contributing, tests, questions}) => {}
+
+
+const fileName = "README.md";
 function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
