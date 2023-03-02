@@ -2,6 +2,34 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+var licenses = [
+    {
+        name: "MIT",
+        value: "https://img.shields.io/badge/License-MIT-yellow.svg",
+        short: "MIT"
+    },
+    {
+        name: "Apache 2.0",
+        value: "https://img.shields.io/badge/License-Apache_2.0-blue.svg",
+        short: "Apache 2.0"
+    },
+    {
+        name: "GNU GPL v3.0",
+        value: "https://img.shields.io/badge/License-GPLv3-blue.svg",
+        short: "GNU GPL v3"
+    },
+    {
+        name: "Mozilla 2.0",
+        value: "https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg",
+        short: "Mozilla 2.0"
+    },
+    {
+        name: "Eclipse 1.0",
+        value: "https://img.shields.io/badge/License-EPL_1.0-red.svg",
+        short: "Eclipse 1.0"
+    }
+]
+
 // TODO: Create an array of questions for user input
 const questions = [
     // title
