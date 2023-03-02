@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 var markdownContent = "";
 
+// This is the array of possible license choices. The reason the value contains an object is because inquirer's choices will only return the value of an array item chosen, nothing else. Making it an object gives us access to the name of the license.
 var licenses = [
     {
         name: "MIT",
@@ -37,86 +38,115 @@ const questions = [
     {
         type: 'input',
         message: 'What is the title of the project?',
-        name: 'title',
+        name: 'title'
     },
     // Description
     {
         type: 'input',
         message: 'Please enter a description of the project:',
-        name: 'description',
+        name: 'description'
     },
     // installation instructions
     {
         type: 'input',
         message: 'Please describe the installation instructions:',
-        name: 'installation',
+        name: 'installation'
     },
     // usage information
     {
         type: 'input',
         message: 'Please enter the usage information for your project:',
-        name: 'usage',
+        name: 'usage'
     },
     // license
     {
         type: 'list',
         choices: licenses,
-        name: 'license',
+        name: 'license'
     },
     // contributions
     {
         type: 'input',
         message: 'Please enter enter the content for the "Contributing" section',
-        name: 'contributing',
+        name: 'contributing'
     },
     // tests
     {
         type: 'input',
         message: 'Please enter the content for the "Test" section:',
-        name: 'tests',
+        name: 'tests'
     },
     // questions
     {
         type: 'input',
-        message: 'Please enter the content for the "Questions" section:',
-        name: 'questions',
+        message: 'Please enter your GitHub username:',
+        name: 'GitHub'
+    },
+    {
+        type: 'input',
+        message: 'Please enter an email for people to reach you at:',
+        name: 'email'
     }
 ];
 inquirer.prompt(questions).then((response)=>{
-    if (response.title){
-        console.log(response.title)
-    };
-    if (response.description){
-        console.log(response.description)
-    };
-    if (response.installation){
-        console.log(response.installation)
-    };
-    if (response.usage){
-        console.log(response.usage)
-    };
-    if (response.license){
-        console.log(response.license)
-    };
-    if (response.contributing){
-        console.log(response.contributing)
-    };
-    if (response.tests){
-        console.log(response.tests)
-    };
-    if (response.questions){
-        console.log(response.questions)
-    };
-}
 
+markdownContent = markdownContent.concat(`# <${response.title}>
+![license](${response.license.value})`);
+
+markdownContent = markdownContent.concat(`
+# Table of Contents:
+- [Description](#installation)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+`);
+
+markdownContent = markdownContent.concat(`
+## Description
+
+${response.description}`);
+
+markdownContent = markdownContent.concat(`
+## Installation
+
+${response.installation}`);
+
+markdownContent = markdownContent.concat(`
+## Usage
+
+${response.usage}`);
+
+markdownContent = markdownContent.concat(`
+## Contributing
+
+${response.contributing}
+`);
+
+markdownContent = markdownContent.concat(`
+## Tests
+
+${response.tests}`);
+
+markdownContent = markdownContent.concat(`
+## Questions
+
+${response.email}
+${response.GitHub}`);
+
+markdownContent = markdownContent.concat(`
+## License
+
+This project is built under the ${response.license.name} license`);
+writeToFile("newReadme.md", markdownContent);
+}
 );
 
 // TODO: Create a function to write README file
-// const generateContent({ tile, description, installation, usage, license, contributing, tests, questions}) => {}
 
-
-const fileName = "newREADME.md";
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, err => err ? console.log(err): console.log("Success!"));
+}
 
 // TODO: Create a function to initialize app
 function init() {}
