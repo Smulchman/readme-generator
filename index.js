@@ -1,9 +1,11 @@
-//Include packages needed for this application
+//Included packages needed for this application.
 const inquirer = require('inquirer');
 const fs = require('fs');
+// I declare this variable globally to ensure no scope problems.
 var markdownContent = "";
 
 // This is the array of possible license choices. The reason the value contains an object is because inquirer's choices will only return the value of an array item chosen, nothing else. Making it an object gives us access to the name of the license.
+// I considered adding a url for each license object to include in the readme but the readme does not include anything about a link.
 var licenses = [
     {
         name: "MIT",
@@ -31,8 +33,7 @@ var licenses = [
         short: "Eclipse 1.0"
     }
 ]
-
-// TODO: Create an array of questions for user input
+// this is the array of questions that prompt the user
 const questions = [
     // title
     {
@@ -76,25 +77,30 @@ const questions = [
         message: 'Please enter the content for the "Test" section:',
         name: 'tests'
     },
-    // questions
+    // github username
     {
         type: 'input',
         message: 'Please enter your GitHub username:',
         name: 'GitHub'
     },
+    // email
     {
         type: 'input',
         message: 'Please enter an email for people to reach you at:',
         name: 'email'
     }
 ];
+// This is where the content of the readme is created using the responses from the inquirer prompts.
+
 inquirer.prompt(questions).then((response)=>{
 
-markdownContent = markdownContent.concat(`# <${response.title}>
+// Note: All of the separate concat methods are there because initially I intended to include if statements that would leave certain sections out if the response was empty, however I saw that was not included in the readme and, as such, have decided against it and don't intend to take the time to merge all the separate functions into one.
+
+markdownContent = markdownContent.concat(`# ${response.title}
 ![license](${response.license.value})`);
 
 markdownContent = markdownContent.concat(`
-# Table of Contents:
+## Table of Contents:
 - [Description](#installation)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -131,25 +137,18 @@ ${response.tests}`);
 markdownContent = markdownContent.concat(`
 ## Questions
 
-${response.email}
-${response.GitHub}`);
+GitHub: [${response.GitHub}](https://github.com/${response.GitHub})  
+You can reach me at the following email with any questions regarding this repository:  
+Email: ${response.email}`);
 
 markdownContent = markdownContent.concat(`
 ## License
 
-This project is built under the ${response.license.name} license`);
+This application is protected under the ${response.license.name} license`);
 writeToFile("newReadme.md", markdownContent);
 }
 );
-
-// TODO: Create a function to write README file
-
+// this is the function executes the actual writing of the file, it's called above with the content generated within the inquirer prompts to create a .md file with the information provided.
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, err => err ? console.log(err): console.log("Success!"));
 }
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
