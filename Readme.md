@@ -9,7 +9,7 @@
 
 ## Description
 
-This is a simple app executed through the console to create a readme file based on user input
+This is a simple app executed through the console to create a readme file based on user input.
 
 ## Usage
 
