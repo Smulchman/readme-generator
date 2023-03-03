@@ -13,6 +13,8 @@ This is a simple app executed through the console to create a readme file based 
 
 ## Usage
 
+You can view a video of the app in use [here](https://drive.google.com/file/d/1PJ0ulcY_hVV9qHzo9JYlOCVDX713_u9q/view)\
+
 To use this app, you need to download the repository to your local machine.\
 After doing so, if you type 'node index' into your console while in the folder of this repo, you will be given a series of prompts.\
 After you follow those prompts, you will have a markdown file created inside of the repository folder titled "newREADME" which will contain all of the information shared during creation.
